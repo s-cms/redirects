@@ -1,0 +1,79 @@
+{
+    "name": "smart-cms/redirects",
+    "description": "This is my package redirects",
+    "keywords": [
+        "SmartCms",
+        "laravel",
+        "filamentphp",
+        "redirects"
+    ],
+    "homepage": "https://github.com/smart-cms/redirects",
+    "support": {
+        "issues": "https://github.com/smart-cms/redirects/issues",
+        "source": "https://github.com/smart-cms/redirects"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "maxboyko",
+            "email": "maxboiko@divotek.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "filament/filament": "^4.0",
+        "spatie/laravel-package-tools": "^1.15.0"
+    },
+    "require-dev": {
+        "larastan/larastan": "^3.0",
+        "laravel/pint": "^1.0",
+        "nunomaduro/collision": "^8.0",
+        "orchestra/testbench": "^9.0|^10.0",
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-arch": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "pestphp/pest-plugin-livewire": "^3.0",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SmartCms\\Redirects\\": "src/",
+            "SmartCms\\Redirects\\Database\\Factories\\": "database/factories/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SmartCms\\Redirects\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
+        "analyse": "phpstan analyse --memory-limit 1G -c phpstan.neon.dist",
+        "lint": "pint",
+        "test": "pest",
+        "test:lint": "pint --test"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SmartCms\\Redirects\\RedirectsServiceProvider"
+            ],
+            "aliases": {
+                "Redirects": "SmartCms\\Redirects\\Facades\\Redirects"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
