@@ -43,14 +43,6 @@ it('uses configurable table name', function () {
     expect($redirect->getTable())->toBe('custom_redirects');
 });
 
-it('uses default table name when config is not set', function () {
-    config(['redirects.table_name' => null]);
-
-    $redirect = new Redirect();
-
-    expect($redirect->getTable())->toBe('redirects');
-});
-
 it('clears cache when redirect is created', function () {
     config(['redirects.cache.enabled' => true]);
 

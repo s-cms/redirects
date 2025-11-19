@@ -4,7 +4,7 @@ namespace SmartCms\Redirects\Filament\Resources\Redirects\Schemas;
 
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Get;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use SmartCms\Redirects\Models\Redirect;
 

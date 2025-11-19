@@ -8,7 +8,6 @@ it('initializes hit_count to 0 when redirect is created', function () {
         'new_url' => '/new-page',
         'status_code' => 301,
     ]);
-
     expect($redirect->hit_count)->toBe(0);
     expect($redirect->last_hit_at)->toBeNull();
 });

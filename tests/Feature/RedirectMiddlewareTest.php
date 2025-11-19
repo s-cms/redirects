@@ -1,25 +1,33 @@
 <?php
 
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 use SmartCms\Redirects\Models\Redirect;
 
 beforeEach(function () {
-    // Set up a test route
-    Route::get('/test-page', function () {
+    // Clear cache before each test
+    Cache::flush();
+
+    // Define routes using the application's router
+    $router = app('router');
+
+    // Define specific test routes
+    $router->get('/test-page', function () {
         return 'Test Page';
     })->middleware('web');
 
-    Route::get('/another-page', function () {
+    $router->get('/another-page', function () {
         return 'Another Page';
     })->middleware('web');
 
-    Route::get('/final-destination', function () {
+    $router->get('/final-destination', function () {
         return 'Final Destination';
     })->middleware('web');
 
-    // Clear cache before each test
-    Cache::flush();
+    // Add a catch-all fallback route to allow middleware to intercept all requests
+    $router->fallback(function () {
+        abort(404);
+    })->middleware('web');
 });
 
 it('redirects when old_url matches', function () {
@@ -64,9 +72,8 @@ it('tracks hits when redirect is used', function () {
         'last_hit_at' => null,
     ]);
 
-    $this->get('/old-page');
-
-    $redirect->refresh();
+    $this->get('/old-page')->assertStatus(301);
+    $redirect = Redirect::where('old_url', '/old-page')->first();
 
     expect($redirect->hit_count)->toBe(1);
     expect($redirect->last_hit_at)->not->toBeNull();
@@ -101,8 +108,8 @@ it('uses cached redirects when cache is enabled', function () {
     // First request - should cache
     $this->get('/cached-page')->assertRedirect('/test-page');
 
-    // Delete the redirect from database
-    $redirect->delete();
+    // Delete the redirect from database using raw query to bypass model events
+    DB::table(config('redirects.table_name'))->where('id', $redirect->id)->delete();
 
     // Second request - should still redirect due to cache
     $this->get('/cached-page')->assertRedirect('/test-page');
@@ -177,7 +184,6 @@ it('handles paths without leading slash', function () {
 
     // Laravel normalizes paths, so this should work
     $response = $this->get('old-page');
-
     $response->assertRedirect('/test-page');
 });
 

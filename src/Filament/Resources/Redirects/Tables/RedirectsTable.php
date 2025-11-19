@@ -2,6 +2,7 @@
 
 namespace SmartCms\Redirects\Filament\Resources\Redirects\Tables;
 
+use Filament\Actions\BulkAction as ActionsBulkAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -39,7 +40,7 @@ class RedirectsTable
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
-                    BulkAction::make('export_selected')
+                    ActionsBulkAction::make('export_selected')
                         ->label('Export Selected')
                         ->icon('heroicon-o-arrow-down-tray')
                         ->action(function (Collection $records) {

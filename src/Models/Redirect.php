@@ -20,7 +20,13 @@ class Redirect extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'old_url',
+        'new_url',
+        'status_code',
+        'hit_count',
+        'last_hit_at',
+    ];
 
     protected $casts = [
         'last_hit_at' => 'datetime',
@@ -30,6 +36,7 @@ class Redirect extends Model
 
     protected static function booted(): void
     {
+        static::creating(fn ($model) => $model->hit_count =$model->hit_count ?? 0);
         static::saved(fn () => static::clearCache());
         static::deleted(fn () => static::clearCache());
     }
