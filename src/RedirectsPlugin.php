@@ -8,7 +8,7 @@ use SmartCms\Redirects\Filament\Resources\Redirects\RedirectResource;
 
 class RedirectsPlugin implements Plugin
 {
-    public static ?string $navigationGroup = 'System';
+    public static ?string $navigationGroup = null;
 
     public function getId(): string
     {

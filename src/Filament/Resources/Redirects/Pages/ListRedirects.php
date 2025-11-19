@@ -18,7 +18,6 @@ class ListRedirects extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
             Action::make('export')
                 ->label('Export CSV')
                 ->icon('heroicon-o-arrow-down-tray')
@@ -38,6 +37,7 @@ class ListRedirects extends ListRecords
                 ->action(function (array $data) {
                     $this->importFromCsv($data['file']);
                 }),
+            CreateAction::make(),
         ];
     }
 
