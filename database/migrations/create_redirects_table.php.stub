@@ -10,9 +10,11 @@ return new class extends Migration
     {
         Schema::create(config('redirects.table_name', 'redirects'), function (Blueprint $table) {
             $table->id();
-            $table->string('old_url');
+            $table->string('old_url')->index();
             $table->string('new_url');
             $table->integer('status_code')->default(301);
+            $table->unsignedBigInteger('hit_count')->default(0);
+            $table->timestamp('last_hit_at')->nullable();
             $table->timestamps();
         });
     }
