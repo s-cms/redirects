@@ -27,16 +27,12 @@ You can install the package via composer:
 composer require smart-cms/redirects
 ```
 
-> [!IMPORTANT]
-> If you have not set up a custom theme and are using Filament Panels follow the instructions in the [Filament Docs](https://filamentphp.com/docs/4.x/styling/overview#creating-a-custom-theme) first.
-
-After setting up a custom theme add the plugin's views to your theme css file or your app's css file if using the standalone packages.
-
-```css
-@source '../../../../vendor/smart-cms/redirects/resources/**/*.blade.php';
+Full package install:
+```bash
+php artisan redirects:install
 ```
 
-You can publish and run the migrations with:
+Or you can publish and run the migrations with:
 
 ```bash
 php artisan vendor:publish --tag="redirects-migrations"
@@ -47,28 +43,6 @@ You can publish the config file with:
 
 ```bash
 php artisan vendor:publish --tag="redirects-config"
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="redirects-views"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-    // Database table name for redirects
-    'table_name' => 'redirects',
-
-    // Cache configuration
-    'cache' => [
-        'enabled' => true,              // Enable/disable caching
-        'ttl' => 60 * 60 * 24,         // Cache TTL in seconds (24 hours)
-        'key' => 'redirects_cache',    // Cache key
-    ],
-];
 ```
 
 ## Usage
@@ -194,18 +168,6 @@ To disable caching:
 ```bash
 composer test
 ```
-
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](.github/SECURITY.md) on how to report security vulnerabilities.
 
 ## Credits
 
